@@ -11,7 +11,12 @@ import plotly.graph_objects as go
 import networkx as nx
 import numpy as np
 import random
+import pandas as pd
+from nltk.sentiment import SentimentIntensityAnalyzer
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
+# Baixe os recursos necessários
+nltk.download('vader_lexicon')
 nltk.download('stopwords')
 # Function to create sidebar
 st.set_page_config(page_title="Passos Mágicos", layout="wide")
@@ -262,65 +267,15 @@ Assim, vamos transformar o Brasil através da educação.
 
 def create_waffle_chart():
 
-    with st.container():
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            st.markdown("### Inscrições válidas X Alunos que compareceram")
-            # Waffle Chart data
-            data = {'Não fizeram a prova': (
-                1121 - 817)/15, 'Fizeram a prova': 817/15}
-            # Create a figure using plt.figure and Waffle class
-            fig = plt.figure(
-                FigureClass=Waffle,
-                rows=5,
-                values=data,
-                colors=["#ced4d9", "#983D3D"],
-                labels=["{0} - {1}".format(k, int(v*15))
-                        for k, v in data.items()],
-                legend={'loc': 'upper left', 'bbox_to_anchor': (1, 1)}
-            )
-            # Display the figure using Streamlit
-            st.pyplot(fig)
+    st.title("O impacto da Passos Mágicos na sociedade de Embu-Guaçu")
+    st.write("""Embu-Guaçu, situado na Região Metropolitana de São Paulo, é um município que abriga uma população de aproximadamente 66.970 pessoas. No entanto, mesmo diante desse número considerável, questões relacionadas à educação infantil merecem atenção especial.
+Conforme indicado por um estudo conduzido pelo QEDU, nos anos de 2003, 2004 e 2005, um total de 3.617 crianças nasceram em Embu-Guaçu durante esse período. Este dado, por si só, ressalta a importância de estruturas educacionais adequadas para atender a demanda de jovens em idade escolar.
+No entanto, o estudo também revelou uma preocupação alarmante: 265 dessas crianças, o que representa aproximadamente 7,3% do total, estavam fora da escola. Esse número reflete uma lacuna significativa no acesso à educação básica, um direito fundamental para o pleno desenvolvimento das crianças e para a construção de uma sociedade mais justa e igualitária.
+Essa constatação destaca a necessidade urgente de políticas educacionais que visem garantir o acesso universal e equitativo à educação em Embu-Guaçu. Investimentos em infraestrutura escolar, programas de inclusão e sensibilização da comunidade são algumas das medidas que podem ser adotadas para enfrentar esse desafio e assegurar que todas as crianças tenham a oportunidade de frequentar a escola e alcançar seu potencial máximo.""")
 
-        with col2:
-            st.markdown(
-                "### Inscrições válidas X Alunos que se matricularam (1ª sem)")
-            # Waffle Chart data
-            data = {'Não foram contemplados': (
-                1121 - 298)/15, 'Foram contemplados': 298/15}
-            # Create a figure using plt.figure and Waffle class
-            fig = plt.figure(
-                FigureClass=Waffle,
-                rows=5,
-                values=data,
-                colors=["#ced4d9", "#182cdb"],
-                labels=["{0} - {1}".format(k, int(v*15))
-                        for k, v in data.items()],
-                legend={'loc': 'upper left', 'bbox_to_anchor': (1, 1)}
-            )
-            # Display the figure using Streamlit
-            st.pyplot(fig)
-
-            with col3:
-                st.markdown(
-                    "### Inscrições válidas X Alunos que se matricularam")
-                # Waffle Chart data
-                data = {'Não foram contemplados': (
-                    1121 - 298 - 254)/15, 'Foram contemplados': 298/15, 'Foram posteriormente': 254/15}
-                # Create a figure using plt.figure and Waffle class
-                fig = plt.figure(
-                    FigureClass=Waffle,
-                    rows=5,
-                    values=data,
-                    colors=["#ced4d9", "#182cdb", "#db8a18"],
-                    labels=["{0} - {1}".format(k, int(v*15))
-                            for k, v in data.items()],
-                    legend={'loc': 'upper left', 'bbox_to_anchor': (1, 1)},
-                )
-                # Display the figure using Streamlit
-                st.pyplot(fig)
-
-      # Inicializando o grafo
+    col1, col2= st.columns(2)
+    with col1:
+        # Inicializando o grafo
         G = nx.Graph()
 
         # Parâmetros da rede
@@ -408,22 +363,393 @@ def create_waffle_chart():
             yaxis=dict(showgrid=False, zeroline=False, showticklabels=False))
 
         # Streamlit: renderizando a figura
-        st.markdown("### Alunos da passos que afetam outras pessoas")
         st.plotly_chart(fig)
+    with col2: 
+        st.markdown("""Em 2023, a Passos Mágicos contava com um corpo discente de 1.100 alunos, cujo impacto se estendia muito além dos limites da instituição. Cada um desses alunos desempenhava um papel crucial não apenas em seu próprio desenvolvimento educacional, mas também na influência que exerciam sobre outras pessoas em seu círculo social.
 
+Considerando que cada aluno afeta diretamente outras 5 pessoas, entre familiares, amigos e conhecidos, e cada uma dessas pessoas, por sua vez, influencia mais uma pessoa, o alcance do impacto da Passos Mágicos se torna surpreendentemente amplo.
+
+Dessa forma, com os 1.100 alunos matriculados na Passos Mágicos em 2023, o impacto direto se estende a 5.500 pessoas. Essas são pessoas cujas vidas são de alguma forma tocadas pela educação e pelo ambiente proporcionados pela instituição.
+
+Além disso, considerando o efeito multiplicador dessas influências, atingimos um número adicional de 5.500 pessoas indiretamente afetadas. Este é um reflexo do poder transformador da educação e do papel fundamental que a Passos Mágicos desempenha na comunidade.
+
+Assim, em um cálculo modesto, podemos afirmar que um total de 12.100 pessoas são afetadas pela educação proporcionada pela Passos Mágicos em 2023. Esse número não apenas sublinha a importância da instituição na vida dos alunos, mas também evidencia seu impacto positivo na sociedade em geral.""")
+    st.markdown("## Seleção para participação do projeto Passos Mágicos")
+    st.markdown("Em 2023 a Passos Mágicos organizou uma prova onde era necessario a realização da inscrição como pré-requisito.")
+    with st.container():
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.markdown("### Inscrições válidas X Alunos que compareceram")
+            # Waffle Chart data
+            data = {'Não fizeram a prova': (
+                1121 - 817)/15, 'Fizeram a prova': 817/15}
+            # Create a figure using plt.figure and Waffle class
+            fig = plt.figure(
+                FigureClass=Waffle,
+                rows=5,
+                values=data,
+                colors=["#ced4d9", "#983D3D"],
+                labels=["{0} - {1}".format(k, int(v*15))
+                        for k, v in data.items()],
+                legend={'loc': 'upper left', 'bbox_to_anchor': (1, 1)}
+            )
+            # Display the figure using Streamlit
+            st.pyplot(fig)
+
+        with col2:
+            st.markdown(
+                "### Inscrições válidas X Alunos que se matricularam (1ª sem)")
+            # Waffle Chart data
+            data = {'Não foram contemplados': (
+                817 - 298)/15, 'Foram contemplados': 298/15}
+            # Create a figure using plt.figure and Waffle class
+            fig = plt.figure(
+                FigureClass=Waffle,
+                rows=5,
+                values=data,
+                colors=["#ced4d9", "#182cdb"],
+                labels=["{0} - {1}".format(k, int(v*15))
+                        for k, v in data.items()],
+                legend={'loc': 'upper left', 'bbox_to_anchor': (1, 1)}
+            )
+            # Display the figure using Streamlit
+            st.pyplot(fig)
+
+            with col3:
+                st.markdown(
+                    "### Inscrições válidas X Alunos que se matricularam")
+                # Waffle Chart data
+                data = {'Não foram contemplados': (
+                    817 - 298 - 254)/15, 'Foram contemplados': 298/15, 'Foram posteriormente': 254/15}
+                # Create a figure using plt.figure and Waffle class
+                fig = plt.figure(
+                    FigureClass=Waffle,
+                    rows=5,
+                    values=data,
+                    colors=["#ced4d9", "#182cdb", "#db8a18"],
+                    labels=["{0} - {1}".format(k, int(v*15))
+                            for k, v in data.items()],
+                    legend={'loc': 'upper left', 'bbox_to_anchor': (1, 1)},
+                )
+                # Display the figure using Streamlit
+                st.pyplot(fig)
+
+
+        st.write("""Observou-se que dos 1.121 alunos inscritos, 304 (27%) não realizaram a prova.
+
+Em relação as matriculas do 1º Semestre, a Passos Mágicos forneceu 298 bolsas, sendo 36% dos alunos contemplados.
+
+Em uma segunda chamada, mais 254 (31%) alunos foram contemplados com novas bolsas, totalizando em 552 (67%) alunos contemplados em 2023.""")
+
+    st.title("O impacto da Passos Mágicos: Se todos os jovens fossem contemplados")
+    st.write("A cada ano a passos aceita em média 150 a mais do que o ano anterior. Com isso em 10 anos a Passos tera uma estimativa de 2.600 alunos ativos, o que contempla aproximadamente 71% da população infantil de Embu-Guaçu com base nos dados atuais.")
+    st.image("assets/crescimento.jpeg")
+    col1, col2= st.columns(2)
+    with col1:
+        st.write("""\n\nCom base na projeção de crescimento para os próximos 10 anos, estima-se um aumento de 1.500 alunos na instituição educacional Passos Mágicos, totalizando um corpo discente de 2.600 estudantes. Essa expansão não apenas influenciará o ambiente escolar, mas também terá um impacto significativo na comunidade ao redor.
+
+Considerando que cada aluno da Passos Mágicos afete diretamente outras 5 pessoas, entre familiares, amigos e conhecidos, e cada uma dessas pessoas influencie mais uma pessoa, o efeito multiplicador se torna evidente. Esse ciclo de influência cria uma rede interconectada de pessoas afetadas pela educação proporcionada pela instituição.
+
+Portanto, com os 2.600 alunos matriculados na Passos Mágicos, temos um impacto direto em 13.000 pessoas. Além disso, considerando o efeito multiplicador, atingimos um número adicional de 13.000 pessoas indiretamente afetadas. Em um cálculo modesto, podemos afirmar que há um total de 28.600 pessoas que experimentam os efeitos da educação fornecida pela Passos Mágicos. Esse número não apenas reflete a importância da instituição na vida dos alunos, mas também destaca seu papel vital na formação e desenvolvimento da comunidade em geral.""")
+    with col2:
+        # Inicializando o grafo
+        G = nx.Graph()
+
+        # Parâmetros da rede
+        num_main_nodes = 26
+        num_neighbor_nodes = 5
+        total_nodes = 669
+
+        # Adicionar os nós principais e seus vizinhos
+        for main_node in range(num_main_nodes):
+            G.add_node(main_node)
+            for i in range(num_neighbor_nodes):
+                neighbor_node = num_main_nodes + main_node * num_neighbor_nodes + i
+                G.add_node(neighbor_node)
+                G.add_edge(main_node, neighbor_node)
+
+                # Conectar cada vizinho a um nó adicional
+                extra_node = num_main_nodes + num_main_nodes * \
+                    num_neighbor_nodes + main_node * num_neighbor_nodes + i
+                G.add_node(extra_node)
+                G.add_edge(neighbor_node, extra_node)
+
+        # Adicionar nós adicionais sem conexões para totalizar 669 nós
+        for extra_node in range(G.number_of_nodes(), total_nodes):
+            G.add_node(extra_node)
+
+        # Posicionar os nós
+        pos = nx.spring_layout(G, seed=42)
+
+        # Dados para nós
+        node_x = []
+        node_y = []
+        node_color = []
+        for node in G.nodes():
+            x, y = pos[node]
+            node_x.append(x)
+            node_y.append(y)
+            # Cor baseada no número de conexões
+            node_color.append(len(G[node]))
+
+        # Dados para arestas
+        edge_x = []
+        edge_y = []
+        for edge in G.edges():
+            x0, y0 = pos[edge[0]]
+            x1, y1 = pos[edge[1]]
+            edge_x.extend([x0, x1, None])
+            edge_y.extend([y0, y1, None])
+
+        # Criar a figura
+        fig = go.Figure()
+
+        # Adicionar arestas
+        fig.add_trace(go.Scatter(
+            x=edge_x, y=edge_y,
+            line=dict(width=0.5, color='#888'),
+            hoverinfo='none',
+            mode='lines'))
+
+        # Adicionar nós
+        fig.add_trace(go.Scatter(
+            x=node_x, y=node_y,
+            mode='markers',
+            hoverinfo='text',
+            marker=dict(
+                showscale=True,
+                colorscale='Viridis',
+                reversescale=True,
+                color=node_color,
+                size=10,
+                colorbar=dict(
+                    thickness=15,
+                    title='Pessoas afetadas pela educação',
+                    xanchor='left',
+                    titleside='right'
+                ),
+                line_width=2)))
+
+        # Atualizar layout da figura
+        fig.update_layout(
+            title='Network Graph with 669 Nodes',
+            showlegend=False,
+            hovermode='closest',
+            margin=dict(b=0, l=0, r=0, t=0),
+            xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
+            yaxis=dict(showgrid=False, zeroline=False, showticklabels=False))
+
+        # Streamlit: renderizando a figura
+        st.plotly_chart(fig)
 
 def main():
     create_sidebar()
-    choice = option_menu(None, ["Home", "Inscrições", "Data Visualization", "outra opção", "Data Analysis", "outra opção"],
+    choice = option_menu(None, ["O Projeto", "Impacto Alunos", "Qualidade de Ensino", "Sentimentos", "Referências", "Quem somos?"],
                          icons=['house', 'bar-chart-fill',
                                 'graph-up', 'graph-up'],
                          menu_icon="cast", default_index=0, orientation="horizontal")
 
-    if choice == "Home":
+    if choice == "O Projeto":
         create_main_content()
-    elif choice == "Inscrições":
+    elif choice == "Qualidade de Ensino":
+        st.title("Qualidade de Ensino")
+        st.markdown("historia")
+        df=pd.read_csv("inputs/PEDE_PASSOS_DATASET_FIAP.csv",sep=";", usecols=["NOME", "IDADE_ALUNO_2020","ANOS_PM_2020","PONTO_VIRADA_2020","PEDRA_2020", "PEDRA_2021", "REC_EQUIPE_1_2021", "REC_EQUIPE_2_2021", "REC_EQUIPE_3_2021", "REC_EQUIPE_4_2021", "PONTO_VIRADA_2021", "NIVEL_IDEAL_2021", "DEFASAGEM_2021", "FASE_2022", "ANO_INGRESSO_2022", "PEDRA_2022", "NOTA_PORT_2022", "NOTA_MAT_2022", "NOTA_ING_2022", "REC_AVA_1_2022", "REC_AVA_2_2022", "REC_AVA_3_2022", "REC_AVA_4_2022", "PONTO_VIRADA_2022", "NIVEL_IDEAL_2022"])
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            df_filtrado = df[df['PEDRA_2020'] != 'D9891/2A']
+            df_filtrado = df_filtrado[df_filtrado['PEDRA_2021'] != '#NULO!']
+            # PEDRA_2020
+            # Contando os valores da coluna PEDRA_2020
+            contagem_PEDRA_2020 = df_filtrado['PEDRA_2020'].value_counts()
+
+            # Obtendo os rótulos (categorias) e os valores da contagem
+            labels = contagem_PEDRA_2020.index.tolist()
+            valores = contagem_PEDRA_2020.values.tolist()
+
+            # Criando o gráfico de pizza
+            fig = go.Figure(data=[go.Pie(labels=labels, values=valores)])
+
+            # Personalizando o layout do gráfico
+            fig.update_layout(title='Distribuição dos dados da coluna PEDRA_2020')
+
+            # Exibindo o gráfico
+            st.plotly_chart(fig)
+        with col2:
+            # PEDRA_2021
+            # Contando os valores da coluna PEDRA_2020
+            contagem_PEDRA_2020 = df_filtrado['PEDRA_2021'].value_counts()
+
+            # Obtendo os rótulos (categorias) e os valores da contagem
+            labels = contagem_PEDRA_2020.index.tolist()
+            valores = contagem_PEDRA_2020.values.tolist()
+
+            # Criando o gráfico de pizza
+            fig = go.Figure(data=[go.Pie(labels=labels, values=valores)])
+
+            # Personalizando o layout do gráfico
+            fig.update_layout(title='Distribuição dos dados da coluna PEDRA_2021')
+
+            # Exibindo o gráfico
+            st.plotly_chart(fig)
+        with col3:
+            # PEDRA_2022
+            # Contando os valores da coluna PEDRA_2020
+            contagem_PEDRA_2020 = df_filtrado['PEDRA_2022'].value_counts()
+
+            # Obtendo os rótulos (categorias) e os valores da contagem
+            labels = contagem_PEDRA_2020.index.tolist()
+            valores = contagem_PEDRA_2020.values.tolist()
+
+            # Criando o gráfico de pizza
+            fig = go.Figure(data=[go.Pie(labels=labels, values=valores)])
+
+            # Personalizando o layout do gráfico
+            fig.update_layout(title='Distribuição dos dados da coluna PEDRA_2022')
+            st.plotly_chart(fig)
+        st.markdown("historia")
+        ##GRÁFICO DE LINHAS
+        # Contando os valores únicos para cada pedra em 2020
+        contagem_pedra_2020 = df['PEDRA_2020'].value_counts()
+        contagem_pedra_2021 = df['PEDRA_2021'].value_counts()
+        contagem_pedra_2022 = df['PEDRA_2022'].value_counts()
+
+        # Criando DataFrames para 2021 e 2022
+        df_2021 = pd.DataFrame.from_dict({'PEDRA_2021': contagem_pedra_2021})
+        df_2022 = pd.DataFrame.from_dict({'PEDRA_2022': contagem_pedra_2022})
+
+        # Combinando os DataFrames
+        df_combined = pd.concat([contagem_pedra_2020, df_2021, df_2022], axis=1)
+        df_combined = df_combined.drop(index=['D9891/2A', '#NULO!'])
+        # Transpondo o DataFrame para ter os anos como índices e as pedras como colunas
+        df_transposed = df_combined.transpose()
+
+        # Criando o gráfico de linhas
+        fig = go.Figure()
+
+        # Adicionando as linhas para cada ano em cada pedra
+        for coluna in df_transposed.columns:
+            fig.add_trace(go.Scatter(x=df_transposed.index, y=df_transposed[coluna], mode='lines', name=coluna))
+
+        # Personalizando o layout do gráfico
+        fig.update_layout(
+            title='Contagem de valores únicos para cada pedra em cada ano',
+            xaxis_title='Ano',
+            yaxis_title='Contagem'
+        )
+        st.plotly_chart(fig)
+
+        st.markdown("historia")
+        col1, col2 = st.columns(2)
+        with col1:
+            count_rec_equipe_1_2021 = df['REC_EQUIPE_1_2021'].value_counts()
+            count_rec_equipe_2_2021 = df['REC_EQUIPE_2_2021'].value_counts()
+            count_rec_equipe_3_2021 = df['REC_EQUIPE_3_2021'].value_counts()
+            count_rec_equipe_4_2021 = df['REC_EQUIPE_4_2021'].value_counts()
+            dfs = [count_rec_equipe_1_2021, count_rec_equipe_2_2021, count_rec_equipe_3_2021, count_rec_equipe_4_2021]
+            df_combined = pd.concat(dfs, axis=1)
+            ##GRAFICO 2021
+            # Renomeação das colunas para facilitar a identificação
+            df_combined.columns = ['Equipe_1', 'Equipe_2', 'Equipe_3', 'Equipe_4']
+
+            # Criação do gráfico de barras empilhadas com Plotly
+            fig = go.Figure()
+
+            for index, row in df_combined.iterrows():
+                fig.add_trace(go.Bar(
+                    x=df_combined.columns,
+                    y=row,
+                    name=index,
+                    hoverinfo='y'
+                ))
+
+            fig.update_layout(
+                title='Contagem de valores únicos por Equipe e Categoria',
+                xaxis_title='Equipe',
+                yaxis_title='Contagem',
+                barmode='stack'
+            )
+            st.plotly_chart(fig)
+        with col2:
+            count_rec_equipe_1_2022 = df['REC_AVA_1_2022'].value_counts()
+            count_rec_equipe_2_2022 = df['REC_AVA_2_2022'].value_counts()
+            count_rec_equipe_3_2022 = df['REC_AVA_3_2022'].value_counts()
+            count_rec_equipe_4_2022 = df['REC_AVA_4_2022'].value_counts()
+            # Combinação dos DataFrames
+            ## grafico 2
+            dfs = [count_rec_equipe_1_2022, count_rec_equipe_2_2022, count_rec_equipe_3_2022, count_rec_equipe_4_2022]
+            df_combined = pd.concat(dfs, axis=1)
+
+            # Renomeação das colunas para facilitar a identificação
+            df_combined.columns = ['Equipe_1', 'Equipe_2', 'Equipe_3', 'Equipe_4']
+
+            # Criação do gráfico de barras empilhadas com Plotly
+            fig = go.Figure()
+
+            for index, row in df_combined.iterrows():
+                fig.add_trace(go.Bar(
+                    x=df_combined.columns,
+                    y=row,
+                    name=index,
+                    hoverinfo='y'
+                ))
+
+            fig.update_layout(
+                title='Contagem de valores únicos por Equipe e Categoria',
+                xaxis_title='Equipe',
+                yaxis_title='Contagem',
+                barmode='stack'
+            )
+            st.plotly_chart(fig)
+
+    elif choice == "Sentimentos":
+        st.title("Análise de Sentimentos")
+        # Função para realizar a análise de sentimentos
+        def analisar_sentimento(texto):
+            sia = SentimentIntensityAnalyzer()
+            sentiment = sia.polarity_scores(texto)
+            return sentiment
+
+        # Área para inserir o texto
+        texto_input = st.text_area("Insira o texto para análise de sentimentos:")
+
+        # Botão para realizar a análise quando o texto for inserido
+        if st.button("Analisar Sentimentos"):
+            if texto_input:
+                # Realizar a análise de sentimentos
+                sentiment = analisar_sentimento(texto_input)
+                
+                # Exibir o resultado da análise
+                st.write("### Resultado da Análise de Sentimentos:")
+                st.write(f"Sentimento: {sentiment}")
+            else:
+                st.warning("Por favor, insira um texto para análise.")
+
+
+    elif choice == "Impacto Alunos":
         create_waffle_chart()
-
-
+    elif choice == "Referências":
+        st.title("Referências")
+        st.subheader("Neste espaço incluímos todos os locais que nos ajudaram a entender melhor o que é a Organização Passos Mágicos, bem como entender o cenário atual de Embu-Guaçu e dados estatisticos sobre estudos no Brasil.")
+        st.markdown(
+        "* Passos Mágicos: https://passosmagicos.org.br/\n\n"
+        "* Nóticia - Indicador de Permanência Escolar: https://conteudos.qedu.org.br/academia/indicador-permanencia-escolar/,\n\n "
+        "* QEDU - Dados de Embu-Guaçu: https://qedu.org.br/municipio/3515103-embu-guacu,\n\n "
+        "* Video - Conheça a Passos Mágicos: https://www.youtube.com/watch?v=36ZfZQa68og,\n\n "
+        "* Video - Qual a importancia de um sonho?: https://www.youtube.com/watch?v=hT_jOmLzpH4,\n\n "
+        "* GOV.BR - MEC e Inep divulgam resultados do Censo Escolar 2023: https://www.gov.br/inep/pt-br/assuntos/noticias/censo-escolar/mec-e-inep-divulgam-resultados-do-censo-escolar-2023,\n\n "
+        "* GOV.BR - Lição de casa é um dos fatores de maior impacto no rendimento dos alunos: https://www.gov.br/inep/pt-br/assuntos/noticias/saeb/licao-de-casa-e-um-dos-fatores-de-maior-impacto-no-rendimento-dos-aluno,\n\n"
+        "* Estadão Expresso - Análise: o dilema da lição de casa: https://expresso.estadao.com.br/educacao/analise-o-dilema-da-licao-de-casa/#:~:text=O%20pr%C3%B3prio%20Pisa%20passou%20a%20pesquisar%20a%20influ%C3%AAncia,s%C3%A3o%20muito%20mais%20determinantes%20para%20um%20bom%20resultado,\n\n"
+        "* Depoimentos Passos Mágicos: https://passosmagicos.org.br/uma-historia-de-sucesso/,\n\n"
+        "* Depoimentos Facebook: https://www.facebook.com/passosmagicos/videos,\n\n"
+        "* Noticia Linkedin - Vitórias que Transformam: https://www.linkedin.com/pulse/vit%C3%B3rias-que-transformam-passosmagicos-fz1le/?originalSubdomain=pt.\n\n"
+    )
+        st.image("assets/referencias.jpeg")
+    elif choice == "Quem somos?":
+        st.title("Quem somos?")
+        st.subheader("Essa atividade foi realizada pelos integrantes Alexandre Augusto de Oliveira Queiroz, Bruna Borges de Moura Scarpe e Hadassa Caroline Juricic, que fazem parte do curso de pós graduação em Análise de dados da FIAP.\n\n")
+        st.markdown("Nos foi proposto nesse desafio do Tech Challenge 5 realizar um trabalho apresentando uma melhoria para a Passos Mágicos. Neste trabalho nos jogamos de cabeça e coração, onde fizemos diversas análises exploratórias com os dados fornecidos pela Organização, bem como pesquisas na internet. Ao final criamos dados que demonstram o quão importante a Passos Mágicos é importante na vida dos moradores e crianças de Embu-Guaçu e porque o projeto deve ser realizado a níveis mundiais! Através de nossos insights geramos algumas percepções e insights que podem ajudar a investidores ou pessoas que querem apoiar a Passos Mágicos em tomadas de decisões.")
+        st.image("assets/obrigadof.png")
 if __name__ == "__main__":
     main()
+    
