@@ -12,8 +12,7 @@ import networkx as nx
 import numpy as np
 import random
 import pandas as pd
-from nltk.sentiment import SentimentIntensityAnalyzer
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+from LeIA.leia import SentimentIntensityAnalyzer
 
 # Baixe os recursos necessários
 nltk.download('vader_lexicon')
@@ -273,7 +272,7 @@ Conforme indicado por um estudo conduzido pelo QEDU, nos anos de 2003, 2004 e 20
 No entanto, o estudo também revelou uma preocupação alarmante: 265 dessas crianças, o que representa aproximadamente 7,3% do total, estavam fora da escola. Esse número reflete uma lacuna significativa no acesso à educação básica, um direito fundamental para o pleno desenvolvimento das crianças e para a construção de uma sociedade mais justa e igualitária.
 Essa constatação destaca a necessidade urgente de políticas educacionais que visem garantir o acesso universal e equitativo à educação em Embu-Guaçu. Investimentos em infraestrutura escolar, programas de inclusão e sensibilização da comunidade são algumas das medidas que podem ser adotadas para enfrentar esse desafio e assegurar que todas as crianças tenham a oportunidade de frequentar a escola e alcançar seu potencial máximo.""")
 
-    col1, col2= st.columns(2)
+    col1, col2 = st.columns(2)
     with col1:
         # Inicializando o grafo
         G = nx.Graph()
@@ -364,7 +363,7 @@ Essa constatação destaca a necessidade urgente de políticas educacionais que 
 
         # Streamlit: renderizando a figura
         st.plotly_chart(fig)
-    with col2: 
+    with col2:
         st.markdown("""Em 2023, a Passos Mágicos contava com um corpo discente de 1.100 alunos, cujo impacto se estendia muito além dos limites da instituição. Cada um desses alunos desempenhava um papel crucial não apenas em seu próprio desenvolvimento educacional, mas também na influência que exerciam sobre outras pessoas em seu círculo social.
 
 Considerando que cada aluno afeta diretamente outras 5 pessoas, entre familiares, amigos e conhecidos, e cada uma dessas pessoas, por sua vez, influencia mais uma pessoa, o alcance do impacto da Passos Mágicos se torna surpreendentemente amplo.
@@ -375,7 +374,8 @@ Além disso, considerando o efeito multiplicador dessas influências, atingimos 
 
 Assim, em um cálculo modesto, podemos afirmar que um total de 12.100 pessoas são afetadas pela educação proporcionada pela Passos Mágicos em 2023. Esse número não apenas sublinha a importância da instituição na vida dos alunos, mas também evidencia seu impacto positivo na sociedade em geral.""")
     st.markdown("## Seleção para participação do projeto Passos Mágicos")
-    st.markdown("Em 2023 a Passos Mágicos organizou uma prova onde era necessario a realização da inscrição como pré-requisito.")
+    st.markdown(
+        "Em 2023 a Passos Mágicos organizou uma prova onde era necessario a realização da inscrição como pré-requisito.")
     with st.container():
         col1, col2, col3 = st.columns(3)
         with col1:
@@ -434,7 +434,6 @@ Assim, em um cálculo modesto, podemos afirmar que um total de 12.100 pessoas s�
                 # Display the figure using Streamlit
                 st.pyplot(fig)
 
-
         st.write("""* Observou-se que, dentre os 1.121 alunos inscritos para a prova, uma proporção significativa de 304 alunos, equivalente a 27% do total, optaram por não realizar o exame.
 
 * No contexto das matrículas referentes ao 1º Semestre, a instituição Passos Mágicos disponibilizou um total de 298 bolsas de estudo. Esse número representa uma parte significativa da comunidade estudantil, contemplando precisamente 36% dos alunos matriculados nesse período.
@@ -444,7 +443,7 @@ Assim, em um cálculo modesto, podemos afirmar que um total de 12.100 pessoas s�
     st.title("O impacto da Passos Mágicos: Se todos os jovens fossem contemplados")
     st.write("A cada ano, a instituição Passos Mágicos aceita em média 150 alunos a mais do que no ano anterior. Com essa progressão constante, em um período de 10 anos, estima-se que a Passos Mágicos terá uma matrícula total de aproximadamente 2.600 alunos ativos. Esse número não apenas reflete o crescimento contínuo e sustentável da instituição, mas também demonstra seu papel vital na comunidade educacional de Embu-Guaçu. Considerando os dados demográficos atuais, essa estimativa de 2.600 alunos representa aproximadamente 71% da população infantil de Embu-Guaçu. Esse é um indicativo poderoso do impacto significativo que a Passos Mágicos tem na vida educacional das crianças e jovens da região. Essa expansão não apenas amplia o acesso à educação de qualidade, mas também contribui para o desenvolvimento e o progresso da comunidade como um todo.")
     st.image("assets/crescimento.jpeg")
-    col1, col2= st.columns(2)
+    col1, col2 = st.columns(2)
     with col1:
         st.write("""\n\nCom base na projeção de crescimento para os próximos 10 anos, estima-se um aumento de 1.500 alunos na instituição educacional Passos Mágicos, totalizando um corpo discente de 2.600 estudantes. Essa expansão não apenas influenciará o ambiente escolar, mas também terá um impacto significativo na comunidade ao redor.
 
@@ -542,6 +541,7 @@ Portanto, com os 2.600 alunos matriculados na Passos Mágicos, temos um impacto 
         # Streamlit: renderizando a figura
         st.plotly_chart(fig)
 
+
 def main():
     create_sidebar()
     choice = option_menu(None, ["O Projeto", "Impacto Alunos", "Qualidade de Ensino", "Sentimentos", "Referências", "Quem somos?"],
@@ -559,7 +559,8 @@ def main():
                     \n•	Ametista (6,8 a 8,2)
                     \n•	Topázio (8,2 a 9,2)
                     \nDurante uma análise realizada entre os anos de 2020 e 2022, notamos um aumento de quase 3% no número de alunos premiados com a pedra Topázio, indicativa das notas mais altas, e uma diminuição de 3% na atribuição da pedra Quartzo, que corresponde às notas mais baixas. Esse padrão sugere um progresso contínuo dos alunos ao longo dos anos, refletindo um esforço e dedicação crescentes em suas jornadas educacionais na instituição. Esse avanço é um sinal positivo do compromisso tanto dos alunos quanto dos educadores da Passos Mágicos com a excelência acadêmica e o desenvolvimento pessoal de cada estudante.""")
-        df=pd.read_csv("inputs/PEDE_PASSOS_DATASET_FIAP.csv",sep=";", usecols=["NOME", "IDADE_ALUNO_2020","ANOS_PM_2020","PONTO_VIRADA_2020","PEDRA_2020", "PEDRA_2021", "REC_EQUIPE_1_2021", "REC_EQUIPE_2_2021", "REC_EQUIPE_3_2021", "REC_EQUIPE_4_2021", "PONTO_VIRADA_2021", "NIVEL_IDEAL_2021", "DEFASAGEM_2021", "FASE_2022", "ANO_INGRESSO_2022", "PEDRA_2022", "NOTA_PORT_2022", "NOTA_MAT_2022", "NOTA_ING_2022", "REC_AVA_1_2022", "REC_AVA_2_2022", "REC_AVA_3_2022", "REC_AVA_4_2022", "PONTO_VIRADA_2022", "NIVEL_IDEAL_2022"])
+        df = pd.read_csv("inputs/PEDE_PASSOS_DATASET_FIAP.csv", sep=";", usecols=["NOME", "IDADE_ALUNO_2020", "ANOS_PM_2020", "PONTO_VIRADA_2020", "PEDRA_2020", "PEDRA_2021", "REC_EQUIPE_1_2021", "REC_EQUIPE_2_2021", "REC_EQUIPE_3_2021", "REC_EQUIPE_4_2021", "PONTO_VIRADA_2021",
+                         "NIVEL_IDEAL_2021", "DEFASAGEM_2021", "FASE_2022", "ANO_INGRESSO_2022", "PEDRA_2022", "NOTA_PORT_2022", "NOTA_MAT_2022", "NOTA_ING_2022", "REC_AVA_1_2022", "REC_AVA_2_2022", "REC_AVA_3_2022", "REC_AVA_4_2022", "PONTO_VIRADA_2022", "NIVEL_IDEAL_2022"])
         col1, col2, col3 = st.columns(3)
         with col1:
             df_filtrado = df[df['PEDRA_2020'] != 'D9891/2A']
@@ -573,12 +574,15 @@ def main():
             valores = contagem_PEDRA_2020.values.tolist()
 
             # Criando o gráfico de pizza
-            cores = ['#9966cc', '#a6cad6', '#ac7175', '#776048']  # Por exemplo, vermelho, azul e verde
+            # Por exemplo, vermelho, azul e verde
+            cores = ['#9966cc', '#a6cad6', '#ac7175', '#776048']
             # Criando o gráfico de pizza
-            fig = go.Figure(data=[go.Pie(labels=labels, values=valores, marker=dict(colors=cores))])
+            fig = go.Figure(
+                data=[go.Pie(labels=labels, values=valores, marker=dict(colors=cores))])
 
             # Personalizando o layout do gráfico
-            fig.update_layout(title='Distribuição dos dados da coluna PEDRA_2020')
+            fig.update_layout(
+                title='Distribuição dos dados da coluna PEDRA_2020')
 
             # Exibindo o gráfico
             st.plotly_chart(fig)
@@ -592,12 +596,15 @@ def main():
             valores = contagem_PEDRA_2020.values.tolist()
 
             # Criando o gráfico de pizza
-            cores = ['#9966cc', '#a6cad6', '#ac7175', '#776048']  # Por exemplo, vermelho, azul e verde
+            # Por exemplo, vermelho, azul e verde
+            cores = ['#9966cc', '#a6cad6', '#ac7175', '#776048']
             # Criando o gráfico de pizza
-            fig = go.Figure(data=[go.Pie(labels=labels, values=valores, marker=dict(colors=cores))])
+            fig = go.Figure(
+                data=[go.Pie(labels=labels, values=valores, marker=dict(colors=cores))])
 
             # Personalizando o layout do gráfico
-            fig.update_layout(title='Distribuição dos dados da coluna PEDRA_2021')
+            fig.update_layout(
+                title='Distribuição dos dados da coluna PEDRA_2021')
 
             # Exibindo o gráfico
             st.plotly_chart(fig)
@@ -611,15 +618,18 @@ def main():
             valores = contagem_PEDRA_2020.values.tolist()
 
             # Criando o gráfico de pizza
-            cores = ['#9966cc', '#a6cad6', '#ac7175', '#776048']  # Por exemplo, vermelho, azul e verde
+            # Por exemplo, vermelho, azul e verde
+            cores = ['#9966cc', '#a6cad6', '#ac7175', '#776048']
             # Criando o gráfico de pizza
-            fig = go.Figure(data=[go.Pie(labels=labels, values=valores, marker=dict(colors=cores))])
+            fig = go.Figure(
+                data=[go.Pie(labels=labels, values=valores, marker=dict(colors=cores))])
 
             # Personalizando o layout do gráfico
-            fig.update_layout(title='Distribuição dos dados da coluna PEDRA_2022')
+            fig.update_layout(
+                title='Distribuição dos dados da coluna PEDRA_2022')
             st.plotly_chart(fig)
         st.markdown("Pode-se observar a presença constante da pedra ametista como uma marca representativa desde o ano de 2020, sugerindo que a maioria dos estudantes tem demonstrado um desempenho intermediário. Essa consistência na predominância da ametista ao longo do tempo pode indicar uma estabilidade no padrão de desempenho dos alunos, refletindo uma distribuição equilibrada entre resultados positivos e desafios a serem superados. É importante analisar mais a fundo esse cenário para compreender os fatores que contribuem para essa tendência e buscar estratégias que possam promover um avanço para níveis de desempenho mais elevados.")
-        ##GRÁFICO DE LINHAS
+        # GRÁFICO DE LINHAS
         # Contando os valores únicos para cada pedra em 2020
         contagem_pedra_2020 = df['PEDRA_2020'].value_counts()
         contagem_pedra_2021 = df['PEDRA_2021'].value_counts()
@@ -630,7 +640,8 @@ def main():
         df_2022 = pd.DataFrame.from_dict({'PEDRA_2022': contagem_pedra_2022})
 
         # Combinando os DataFrames
-        df_combined = pd.concat([contagem_pedra_2020, df_2021, df_2022], axis=1)
+        df_combined = pd.concat(
+            [contagem_pedra_2020, df_2021, df_2022], axis=1)
         df_combined = df_combined.drop(index=['D9891/2A', '#NULO!'])
         # Transpondo o DataFrame para ter os anos como índices e as pedras como colunas
         df_transposed = df_combined.transpose()
@@ -639,7 +650,8 @@ def main():
         fig = go.Figure()
 
         # Adicionando as linhas para cada ano em cada pedra
-        cores = ['#9966cc', '#a6cad6', '#ac7175', '#776048']  # Por exemplo, azul, vermelho, verde e laranja
+        # Por exemplo, azul, vermelho, verde e laranja
+        cores = ['#9966cc', '#a6cad6', '#ac7175', '#776048']
 
         # Criando uma figura vazia
         fig = go.Figure()
@@ -651,7 +663,8 @@ def main():
                 y=df_transposed[coluna],
                 mode='lines',
                 name=coluna,
-                line=dict(color=cores[i % len(cores)])  # Garante que as cores sejam recicladas se houver mais linhas do que cores definidas
+                # Garante que as cores sejam recicladas se houver mais linhas do que cores definidas
+                line=dict(color=cores[i % len(cores)])
             ))
 
         # Personalizando o layout do gráfico
@@ -675,11 +688,13 @@ Esse cenário ressalta a importância das avaliações regulares no processo edu
             count_rec_equipe_2_2021 = df['REC_EQUIPE_2_2021'].value_counts()
             count_rec_equipe_3_2021 = df['REC_EQUIPE_3_2021'].value_counts()
             count_rec_equipe_4_2021 = df['REC_EQUIPE_4_2021'].value_counts()
-            dfs = [count_rec_equipe_1_2021, count_rec_equipe_2_2021, count_rec_equipe_3_2021, count_rec_equipe_4_2021]
+            dfs = [count_rec_equipe_1_2021, count_rec_equipe_2_2021,
+                   count_rec_equipe_3_2021, count_rec_equipe_4_2021]
             df_combined = pd.concat(dfs, axis=1)
-            ##GRAFICO 2021
+            # GRAFICO 2021
             # Renomeação das colunas para facilitar a identificação
-            df_combined.columns = ['Equipe_1', 'Equipe_2', 'Equipe_3', 'Equipe_4']
+            df_combined.columns = ['Equipe_1',
+                                   'Equipe_2', 'Equipe_3', 'Equipe_4']
 
             # Criação do gráfico de barras empilhadas com Plotly
             fig = go.Figure()
@@ -705,12 +720,14 @@ Esse cenário ressalta a importância das avaliações regulares no processo edu
             count_rec_equipe_3_2022 = df['REC_AVA_3_2022'].value_counts()
             count_rec_equipe_4_2022 = df['REC_AVA_4_2022'].value_counts()
             # Combinação dos DataFrames
-            ## grafico 2
-            dfs = [count_rec_equipe_1_2022, count_rec_equipe_2_2022, count_rec_equipe_3_2022, count_rec_equipe_4_2022]
+            # grafico 2
+            dfs = [count_rec_equipe_1_2022, count_rec_equipe_2_2022,
+                   count_rec_equipe_3_2022, count_rec_equipe_4_2022]
             df_combined = pd.concat(dfs, axis=1)
 
             # Renomeação das colunas para facilitar a identificação
-            df_combined.columns = ['Equipe_1', 'Equipe_2', 'Equipe_3', 'Equipe_4']
+            df_combined.columns = ['Equipe_1',
+                                   'Equipe_2', 'Equipe_3', 'Equipe_4']
 
             # Criação do gráfico de barras empilhadas com Plotly
             fig = go.Figure()
@@ -736,21 +753,35 @@ Esse cenário ressalta a importância das avaliações regulares no processo edu
         st.markdown("""A análise de sentimentos de dados é uma técnica usada para entender as emoções expressas em textos, comentários, avaliações ou qualquer tipo de dados textuais. O objetivo é determinar se o sentimento expresso é positivo, negativo ou neutro. Por exemplo, em uma análise de sentimentos de comentários de clientes sobre um produto, a análise identificaria se os comentários são geralmente positivos (por exemplo, "amei este produto"), negativos (por exemplo, "não gostei da qualidade") ou neutros (por exemplo, "ok, nada de especial"). Isso é feito usando algoritmos de processamento de linguagem natural que examinam as palavras e frases no texto para inferir o sentimento geral. A análise de sentimentos de dados é amplamente utilizada em áreas como análise de mídia social, avaliação de produtos, feedback do cliente e pesquisa de opinião.""")
         st.markdown("**O que fizemos?**")
         st.markdown("Selecionamos três depoimentos disponíveis no site da Passos Mágicos e utilizamos nossa ferramenta de Análise de Sentimentos para mapear o sentimento e a satisfação dos estudantes. Abaixo, apresentamos os resultados:")
+        s = SentimentIntensityAnalyzer()
         col1, col2, col3 = st.columns(3)
         with col1:
             st.image("assets/menina1.jpeg")
-            st.markdown("""Raphaela Soares: Olá, sou Raphaela Soares da Silva, estudante de Enfermagem na Universidade Santo Amaro, com 19 anos de idade. Agradeço à Passos Mágicos pela oportunidade de participar de um nano curso na plataforma da FIAP sobre "Libras". Aprender a Língua Brasileira de Sinais é crucial, sendo uma habilidade valiosa para minha formação na área da saúde.""")
-            st.markdown("**Resultado da análise utilizando nossa ferramenta de análise de sentimentos:**")
+            texto1 = """Raphaela Soares: Olá, sou Raphaela Soares da Silva, estudante de Enfermagem na Universidade Santo Amaro, com 19 anos de idade. Agradeço à Passos Mágicos pela oportunidade de participar de um nano curso na plataforma da FIAP sobre "Libras". Aprender a Língua Brasileira de Sinais é crucial, sendo uma habilidade valiosa para minha formação na área da saúde."""
+
+            st.markdown(texto1)
+            resultado1 = s.polarity_scores(texto1)
+            st.markdown(
+                "**Resultado da análise utilizando nossa ferramenta de análise de sentimentos:**")
+            st.json(resultado1)
 
         with col2:
             st.image("assets/menina2.jpeg")
-            st.markdown("""Bruna Ramos: Me chamo Bruna Ramos da Silva, e estudo na Passos Mágicos desde 2017. Conheci a Associação através de um tio e desde então minha vida vem sendo transformada pela família Passos Mágicos. Em 2019, ganhei uma bolsa para estudar na União (atualmente Rede Decisão), marcando uma virada na minha vida. A qualidade de ensino era notavelmente superior. Em 2020, fui informada sobre vagas para o ensino médio técnico no Einstein, não hesitei e aceitei imediatamente. A Passos Mágicos tem sido meu apoio desde que sonhei em seguir Medicina e agora, sou estudante da UNISA no curso que sempre sonhei.""")
-            st.markdown("**Resultado da análise utilizando nossa ferramenta de análise de sentimentos:**")
+            text2 = """Bruna Ramos: Me chamo Bruna Ramos da Silva, e estudo na Passos Mágicos desde 2017. Conheci a Associação através de um tio e desde então minha vida vem sendo transformada pela família Passos Mágicos. Em 2019, ganhei uma bolsa para estudar na União (atualmente Rede Decisão), marcando uma virada na minha vida. A qualidade de ensino era notavelmente superior. Em 2020, fui informada sobre vagas para o ensino médio técnico no Einstein, não hesitei e aceitei imediatamente. A Passos Mágicos tem sido meu apoio desde que sonhei em seguir Medicina e agora, sou estudante da UNISA no curso que sempre sonhei."""
+            st.markdown(text2)
+            resultado2 = s.polarity_scores(text2)
+            st.markdown(
+                "**Resultado da análise utilizando nossa ferramenta de análise de sentimentos:**")
+            st.json(resultado2)
 
         with col3:
             st.image("assets/menina3.jpeg")
-            st.markdown("""Maria Letícias: Na ONG, aprendi a acreditar em mim mesma e que sonhos são possíveis. Com a Passos, tive oportunidades para evoluir e aprender mais a cada dia. No terceiro ano do ensino médio, os alunos prestes a fazer vestibular foram apresentados ao programa VemSer da Passos, que oferece apoio aos estudos. Mesmo em um ano desafiador, tivemos suporte em cada etapa, proporcionando mais tranquilidade. Com muito esforço, passei noites estudando, mas valeu a pena. Realizei meu sonho, fui aprovada na ESPM e agora sou bolsista em Comunicação e Publicidade. Com a Passos, iniciei um novo ciclo, e é fundamental ter ao meu lado pessoas que se importam com meu futuro.""")
-            st.markdown("**Resultado da análise utilizando nossa ferramenta de análise de sentimentos:**")
+            text3 = """Maria Letícias: Na ONG, aprendi a acreditar em mim mesma e que sonhos são possíveis. Com a Passos, tive oportunidades para evoluir e aprender mais a cada dia. No terceiro ano do ensino médio, os alunos prestes a fazer vestibular foram apresentados ao programa VemSer da Passos, que oferece apoio aos estudos. Mesmo em um ano desafiador, tivemos suporte em cada etapa, proporcionando mais tranquilidade. Com muito esforço, passei noites estudando, mas valeu a pena. Realizei meu sonho, fui aprovada na ESPM e agora sou bolsista em Comunicação e Publicidade. Com a Passos, iniciei um novo ciclo, e é fundamental ter ao meu lado pessoas que se importam com meu futuro."""
+            st.markdown(text3)
+            resultado3 = s.polarity_scores(text3)
+            st.markdown(
+                "**Resultado da análise utilizando nossa ferramenta de análise de sentimentos:**")
+            st.json(resultado3)
 
         # Função para realizar a análise de sentimentos
         def analisar_sentimento(texto):
@@ -759,20 +790,20 @@ Esse cenário ressalta a importância das avaliações regulares no processo edu
             return sentiment
 
         # Área para inserir o texto
-        texto_input = st.text_area("Insira o texto para análise de sentimentos:")
+        texto_input = st.text_area(
+            "Insira um depoimento ou texto para ser analisado:")
 
         # Botão para realizar a análise quando o texto for inserido
         if st.button("Analisar Sentimentos"):
             if texto_input:
                 # Realizar a análise de sentimentos
                 sentiment = analisar_sentimento(texto_input)
-                
+
                 # Exibir o resultado da análise
                 st.write("### Resultado da Análise de Sentimentos:")
                 st.write(f"Sentimento: {sentiment}")
             else:
                 st.warning("Por favor, insira um texto para análise.")
-
 
     elif choice == "Impacto Alunos":
         create_waffle_chart()
@@ -780,24 +811,25 @@ Esse cenário ressalta a importância das avaliações regulares no processo edu
         st.title("Referências")
         st.subheader("Neste espaço incluímos todos os locais que nos ajudaram a entender melhor o que é a Organização Passos Mágicos, bem como entender o cenário atual de Embu-Guaçu e dados estatisticos sobre estudos no Brasil.")
         st.markdown(
-        "* Passos Mágicos: https://passosmagicos.org.br/\n\n"
-        "* Nóticia - Indicador de Permanência Escolar: https://conteudos.qedu.org.br/academia/indicador-permanencia-escolar/,\n\n "
-        "* QEDU - Dados de Embu-Guaçu: https://qedu.org.br/municipio/3515103-embu-guacu,\n\n "
-        "* Video - Conheça a Passos Mágicos: https://www.youtube.com/watch?v=36ZfZQa68og,\n\n "
-        "* Video - Qual a importancia de um sonho?: https://www.youtube.com/watch?v=hT_jOmLzpH4,\n\n "
-        "* GOV.BR - MEC e Inep divulgam resultados do Censo Escolar 2023: https://www.gov.br/inep/pt-br/assuntos/noticias/censo-escolar/mec-e-inep-divulgam-resultados-do-censo-escolar-2023,\n\n "
-        "* GOV.BR - Lição de casa é um dos fatores de maior impacto no rendimento dos alunos: https://www.gov.br/inep/pt-br/assuntos/noticias/saeb/licao-de-casa-e-um-dos-fatores-de-maior-impacto-no-rendimento-dos-aluno,\n\n"
-        "* Estadão Expresso - Análise: o dilema da lição de casa: https://expresso.estadao.com.br/educacao/analise-o-dilema-da-licao-de-casa/#:~:text=O%20pr%C3%B3prio%20Pisa%20passou%20a%20pesquisar%20a%20influ%C3%AAncia,s%C3%A3o%20muito%20mais%20determinantes%20para%20um%20bom%20resultado,\n\n"
-        "* Depoimentos Passos Mágicos: https://passosmagicos.org.br/uma-historia-de-sucesso/,\n\n"
-        "* Depoimentos Facebook: https://www.facebook.com/passosmagicos/videos,\n\n"
-        "* Noticia Linkedin - Vitórias que Transformam: https://www.linkedin.com/pulse/vit%C3%B3rias-que-transformam-passosmagicos-fz1le/?originalSubdomain=pt.\n\n"
-    )
+            "* Passos Mágicos: https://passosmagicos.org.br/\n\n"
+            "* Nóticia - Indicador de Permanência Escolar: https://conteudos.qedu.org.br/academia/indicador-permanencia-escolar/,\n\n "
+            "* QEDU - Dados de Embu-Guaçu: https://qedu.org.br/municipio/3515103-embu-guacu,\n\n "
+            "* Video - Conheça a Passos Mágicos: https://www.youtube.com/watch?v=36ZfZQa68og,\n\n "
+            "* Video - Qual a importancia de um sonho?: https://www.youtube.com/watch?v=hT_jOmLzpH4,\n\n "
+            "* GOV.BR - MEC e Inep divulgam resultados do Censo Escolar 2023: https://www.gov.br/inep/pt-br/assuntos/noticias/censo-escolar/mec-e-inep-divulgam-resultados-do-censo-escolar-2023,\n\n "
+            "* GOV.BR - Lição de casa é um dos fatores de maior impacto no rendimento dos alunos: https://www.gov.br/inep/pt-br/assuntos/noticias/saeb/licao-de-casa-e-um-dos-fatores-de-maior-impacto-no-rendimento-dos-aluno,\n\n"
+            "* Estadão Expresso - Análise: o dilema da lição de casa: https://expresso.estadao.com.br/educacao/analise-o-dilema-da-licao-de-casa/#:~:text=O%20pr%C3%B3prio%20Pisa%20passou%20a%20pesquisar%20a%20influ%C3%AAncia,s%C3%A3o%20muito%20mais%20determinantes%20para%20um%20bom%20resultado,\n\n"
+            "* Depoimentos Passos Mágicos: https://passosmagicos.org.br/uma-historia-de-sucesso/,\n\n"
+            "* Depoimentos Facebook: https://www.facebook.com/passosmagicos/videos,\n\n"
+            "* Noticia Linkedin - Vitórias que Transformam: https://www.linkedin.com/pulse/vit%C3%B3rias-que-transformam-passosmagicos-fz1le/?originalSubdomain=pt.\n\n"
+        )
         st.image("assets/referencias.jpeg")
     elif choice == "Quem somos?":
         st.title("Quem somos?")
         st.subheader("Essa atividade foi realizada pelos integrantes Alexandre Augusto de Oliveira Queiroz, Bruna Borges de Moura Scarpe e Hadassa Caroline Juricic, que fazem parte do curso de pós graduação em Análise de dados da FIAP.\n\n")
         st.markdown("Nos foi proposto nesse desafio do Tech Challenge 5 realizar um trabalho apresentando uma melhoria para a Passos Mágicos. Neste trabalho nos jogamos de cabeça e coração, onde fizemos diversas análises exploratórias com os dados fornecidos pela Organização, bem como pesquisas na internet. Ao final criamos dados que demonstram o quão importante a Passos Mágicos é importante na vida dos moradores e crianças de Embu-Guaçu e porque o projeto deve ser realizado a níveis mundiais! Através de nossos insights geramos algumas percepções e insights que podem ajudar a investidores ou pessoas que querem apoiar a Passos Mágicos em tomadas de decisões.")
         st.image("assets/obrigadof.png")
+
+
 if __name__ == "__main__":
     main()
-    
