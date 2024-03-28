@@ -379,7 +379,7 @@ Assim, em um cálculo modesto, podemos afirmar que um total de 12.100 pessoas s�
     with st.container():
         col1, col2, col3 = st.columns(3)
         with col1:
-            st.markdown("### Inscrições válidas X Alunos que compareceram")
+            st.markdown("### 1) inscrições válidas X alunos que compareceram")
             # Waffle Chart data
             data = {'Não fizeram a prova': (
                 1121 - 817)/15, 'Fizeram a prova': 817/15}
@@ -398,7 +398,7 @@ Assim, em um cálculo modesto, podemos afirmar que um total de 12.100 pessoas s�
 
         with col2:
             st.markdown(
-                "### Inscrições válidas X Alunos que se matricularam (1ª sem)")
+                "### 2) inscrições válidas X alunos que se matricularam (1ª sem)")
             # Waffle Chart data
             data = {'Não foram contemplados': (
                 817 - 298)/15, 'Foram contemplados': 298/15}
@@ -417,7 +417,7 @@ Assim, em um cálculo modesto, podemos afirmar que um total de 12.100 pessoas s�
 
             with col3:
                 st.markdown(
-                    "### Inscrições válidas X Alunos que se matricularam")
+                    "### 3) inscrições válidas X alunos que se matricularam")
                 # Waffle Chart data
                 data = {'Não foram contemplados': (
                     817 - 298 - 254)/15, 'Foram contemplados': 298/15, 'Foram posteriormente': 254/15}
@@ -435,14 +435,14 @@ Assim, em um cálculo modesto, podemos afirmar que um total de 12.100 pessoas s�
                 st.pyplot(fig)
 
 
-        st.write("""Observou-se que dos 1.121 alunos inscritos, 304 (27%) não realizaram a prova.
+        st.write("""* Observou-se que, dentre os 1.121 alunos inscritos para a prova, uma proporção significativa de 304 alunos, equivalente a 27% do total, optaram por não realizar o exame.
 
-Em relação as matriculas do 1º Semestre, a Passos Mágicos forneceu 298 bolsas, sendo 36% dos alunos contemplados.
+* No contexto das matrículas referentes ao 1º Semestre, a instituição Passos Mágicos disponibilizou um total de 298 bolsas de estudo. Esse número representa uma parte significativa da comunidade estudantil, contemplando precisamente 36% dos alunos matriculados nesse período.
 
-Em uma segunda chamada, mais 254 (31%) alunos foram contemplados com novas bolsas, totalizando em 552 (67%) alunos contemplados em 2023.""")
+* Durante uma segunda rodada de seleção, um adicional de 254 alunos, representando 31% do total, foi agraciado com novas bolsas de estudo. Com essa inclusão, o número total de alunos contemplados ao longo do ano de 2023 ascendeu para 552, o que equivale a uma proporção significativa de 67% dos estudantes beneficiados com esse importante suporte financeiro. Esse aumento no número de bolsistas reflete o compromisso contínuo da instituição em ampliar o acesso à educação e em fornecer apoio adicional aos alunos que demonstram mérito e necessidade financeira.""")
 
     st.title("O impacto da Passos Mágicos: Se todos os jovens fossem contemplados")
-    st.write("A cada ano a passos aceita em média 150 a mais do que o ano anterior. Com isso em 10 anos a Passos tera uma estimativa de 2.600 alunos ativos, o que contempla aproximadamente 71% da população infantil de Embu-Guaçu com base nos dados atuais.")
+    st.write("A cada ano, a instituição Passos Mágicos aceita em média 150 alunos a mais do que no ano anterior. Com essa progressão constante, em um período de 10 anos, estima-se que a Passos Mágicos terá uma matrícula total de aproximadamente 2.600 alunos ativos. Esse número não apenas reflete o crescimento contínuo e sustentável da instituição, mas também demonstra seu papel vital na comunidade educacional de Embu-Guaçu. Considerando os dados demográficos atuais, essa estimativa de 2.600 alunos representa aproximadamente 71% da população infantil de Embu-Guaçu. Esse é um indicativo poderoso do impacto significativo que a Passos Mágicos tem na vida educacional das crianças e jovens da região. Essa expansão não apenas amplia o acesso à educação de qualidade, mas também contribui para o desenvolvimento e o progresso da comunidade como um todo.")
     st.image("assets/crescimento.jpeg")
     col1, col2= st.columns(2)
     with col1:
@@ -553,7 +553,12 @@ def main():
         create_main_content()
     elif choice == "Qualidade de Ensino":
         st.title("Qualidade de Ensino")
-        st.markdown("historia")
+        st.markdown("""Na Passos Mágicos, os estudantes são classificados com base em suas notas, representadas por diferentes pedras preciosas:
+                    \n•	Quartzo (2,4 a 5,5)
+                    \n• Ágata (5,5 a 6,8)
+                    \n•	Ametista (6,8 a 8,2)
+                    \n•	Topázio (8,2 a 9,2)
+                    \nDurante uma análise realizada entre os anos de 2020 e 2022, notamos um aumento de quase 3% no número de alunos premiados com a pedra Topázio, indicativa das notas mais altas, e uma diminuição de 3% na atribuição da pedra Quartzo, que corresponde às notas mais baixas. Esse padrão sugere um progresso contínuo dos alunos ao longo dos anos, refletindo um esforço e dedicação crescentes em suas jornadas educacionais na instituição. Esse avanço é um sinal positivo do compromisso tanto dos alunos quanto dos educadores da Passos Mágicos com a excelência acadêmica e o desenvolvimento pessoal de cada estudante.""")
         df=pd.read_csv("inputs/PEDE_PASSOS_DATASET_FIAP.csv",sep=";", usecols=["NOME", "IDADE_ALUNO_2020","ANOS_PM_2020","PONTO_VIRADA_2020","PEDRA_2020", "PEDRA_2021", "REC_EQUIPE_1_2021", "REC_EQUIPE_2_2021", "REC_EQUIPE_3_2021", "REC_EQUIPE_4_2021", "PONTO_VIRADA_2021", "NIVEL_IDEAL_2021", "DEFASAGEM_2021", "FASE_2022", "ANO_INGRESSO_2022", "PEDRA_2022", "NOTA_PORT_2022", "NOTA_MAT_2022", "NOTA_ING_2022", "REC_AVA_1_2022", "REC_AVA_2_2022", "REC_AVA_3_2022", "REC_AVA_4_2022", "PONTO_VIRADA_2022", "NIVEL_IDEAL_2022"])
         col1, col2, col3 = st.columns(3)
         with col1:
@@ -568,7 +573,9 @@ def main():
             valores = contagem_PEDRA_2020.values.tolist()
 
             # Criando o gráfico de pizza
-            fig = go.Figure(data=[go.Pie(labels=labels, values=valores)])
+            cores = ['#9966cc', '#a6cad6', '#ac7175', '#776048']  # Por exemplo, vermelho, azul e verde
+            # Criando o gráfico de pizza
+            fig = go.Figure(data=[go.Pie(labels=labels, values=valores, marker=dict(colors=cores))])
 
             # Personalizando o layout do gráfico
             fig.update_layout(title='Distribuição dos dados da coluna PEDRA_2020')
@@ -585,7 +592,9 @@ def main():
             valores = contagem_PEDRA_2020.values.tolist()
 
             # Criando o gráfico de pizza
-            fig = go.Figure(data=[go.Pie(labels=labels, values=valores)])
+            cores = ['#9966cc', '#a6cad6', '#ac7175', '#776048']  # Por exemplo, vermelho, azul e verde
+            # Criando o gráfico de pizza
+            fig = go.Figure(data=[go.Pie(labels=labels, values=valores, marker=dict(colors=cores))])
 
             # Personalizando o layout do gráfico
             fig.update_layout(title='Distribuição dos dados da coluna PEDRA_2021')
@@ -602,12 +611,14 @@ def main():
             valores = contagem_PEDRA_2020.values.tolist()
 
             # Criando o gráfico de pizza
-            fig = go.Figure(data=[go.Pie(labels=labels, values=valores)])
+            cores = ['#9966cc', '#a6cad6', '#ac7175', '#776048']  # Por exemplo, vermelho, azul e verde
+            # Criando o gráfico de pizza
+            fig = go.Figure(data=[go.Pie(labels=labels, values=valores, marker=dict(colors=cores))])
 
             # Personalizando o layout do gráfico
             fig.update_layout(title='Distribuição dos dados da coluna PEDRA_2022')
             st.plotly_chart(fig)
-        st.markdown("historia")
+        st.markdown("Pode-se observar a presença constante da pedra ametista como uma marca representativa desde o ano de 2020, sugerindo que a maioria dos estudantes tem demonstrado um desempenho intermediário. Essa consistência na predominância da ametista ao longo do tempo pode indicar uma estabilidade no padrão de desempenho dos alunos, refletindo uma distribuição equilibrada entre resultados positivos e desafios a serem superados. É importante analisar mais a fundo esse cenário para compreender os fatores que contribuem para essa tendência e buscar estratégias que possam promover um avanço para níveis de desempenho mais elevados.")
         ##GRÁFICO DE LINHAS
         # Contando os valores únicos para cada pedra em 2020
         contagem_pedra_2020 = df['PEDRA_2020'].value_counts()
@@ -628,8 +639,20 @@ def main():
         fig = go.Figure()
 
         # Adicionando as linhas para cada ano em cada pedra
-        for coluna in df_transposed.columns:
-            fig.add_trace(go.Scatter(x=df_transposed.index, y=df_transposed[coluna], mode='lines', name=coluna))
+        cores = ['#9966cc', '#a6cad6', '#ac7175', '#776048']  # Por exemplo, azul, vermelho, verde e laranja
+
+        # Criando uma figura vazia
+        fig = go.Figure()
+
+        # Adicionando uma linha para cada coluna do DataFrame transposto
+        for i, coluna in enumerate(df_transposed.columns):
+            fig.add_trace(go.Scatter(
+                x=df_transposed.index,
+                y=df_transposed[coluna],
+                mode='lines',
+                name=coluna,
+                line=dict(color=cores[i % len(cores)])  # Garante que as cores sejam recicladas se houver mais linhas do que cores definidas
+            ))
 
         # Personalizando o layout do gráfico
         fig.update_layout(
@@ -639,7 +662,13 @@ def main():
         )
         st.plotly_chart(fig)
 
-        st.markdown("historia")
+        st.markdown("""Anualmente, a instituição realiza provas com o intuito de avaliar o nível de conhecimento de cada aluno. A partir do desempenho obtido, são tomadas decisões quanto à progressão dos estudantes em seu percurso educacional. Com base nesses resultados, determina-se se o aluno permanecerá na mesma fase, retornará à fase anterior ou será promovido para a próxima etapa do seu aprendizado.
+
+Durante o período entre 2021 e 2022, observa-se um cenário em que a maioria dos alunos mantém-se na mesma fase em que se encontravam, evidenciando uma estabilidade no progresso acadêmico. Contudo, é notável que muitos estudantes avançam para o próximo nível, indicando um crescimento significativo em seus conhecimentos e habilidades.
+
+Além disso, alguns alunos têm a oportunidade privilegiada de receber bolsas de estudo em outras instituições de ensino. Essa oportunidade não apenas reconhece o mérito e o esforço desses alunos, mas também os capacita a explorar novas oportunidades educacionais e a aprimorar ainda mais seus horizontes acadêmicos.
+
+Esse cenário ressalta a importância das avaliações regulares no processo educacional, bem como o compromisso da instituição em promover o avanço e o sucesso acadêmico de seus alunos, proporcionando-lhes oportunidades de crescimento e desenvolvimento contínuo.""")
         col1, col2 = st.columns(2)
         with col1:
             count_rec_equipe_1_2021 = df['REC_EQUIPE_1_2021'].value_counts()
@@ -704,6 +733,25 @@ def main():
 
     elif choice == "Sentimentos":
         st.title("Análise de Sentimentos")
+        st.markdown("""A análise de sentimentos de dados é uma técnica usada para entender as emoções expressas em textos, comentários, avaliações ou qualquer tipo de dados textuais. O objetivo é determinar se o sentimento expresso é positivo, negativo ou neutro. Por exemplo, em uma análise de sentimentos de comentários de clientes sobre um produto, a análise identificaria se os comentários são geralmente positivos (por exemplo, "amei este produto"), negativos (por exemplo, "não gostei da qualidade") ou neutros (por exemplo, "ok, nada de especial"). Isso é feito usando algoritmos de processamento de linguagem natural que examinam as palavras e frases no texto para inferir o sentimento geral. A análise de sentimentos de dados é amplamente utilizada em áreas como análise de mídia social, avaliação de produtos, feedback do cliente e pesquisa de opinião.""")
+        st.markdown("**O que fizemos?**")
+        st.markdown("Selecionamos três depoimentos disponíveis no site da Passos Mágicos e utilizamos nossa ferramenta de Análise de Sentimentos para mapear o sentimento e a satisfação dos estudantes. Abaixo, apresentamos os resultados:")
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.image("assets/menina1.jpeg")
+            st.markdown("""Raphaela Soares: Olá, sou Raphaela Soares da Silva, estudante de Enfermagem na Universidade Santo Amaro, com 19 anos de idade. Agradeço à Passos Mágicos pela oportunidade de participar de um nano curso na plataforma da FIAP sobre "Libras". Aprender a Língua Brasileira de Sinais é crucial, sendo uma habilidade valiosa para minha formação na área da saúde.""")
+            st.markdown("**Resultado da análise utilizando nossa ferramenta de análise de sentimentos:**")
+
+        with col2:
+            st.image("assets/menina2.jpeg")
+            st.markdown("""Bruna Ramos: Me chamo Bruna Ramos da Silva, e estudo na Passos Mágicos desde 2017. Conheci a Associação através de um tio e desde então minha vida vem sendo transformada pela família Passos Mágicos. Em 2019, ganhei uma bolsa para estudar na União (atualmente Rede Decisão), marcando uma virada na minha vida. A qualidade de ensino era notavelmente superior. Em 2020, fui informada sobre vagas para o ensino médio técnico no Einstein, não hesitei e aceitei imediatamente. A Passos Mágicos tem sido meu apoio desde que sonhei em seguir Medicina e agora, sou estudante da UNISA no curso que sempre sonhei.""")
+            st.markdown("**Resultado da análise utilizando nossa ferramenta de análise de sentimentos:**")
+
+        with col3:
+            st.image("assets/menina3.jpeg")
+            st.markdown("""Maria Letícias: Na ONG, aprendi a acreditar em mim mesma e que sonhos são possíveis. Com a Passos, tive oportunidades para evoluir e aprender mais a cada dia. No terceiro ano do ensino médio, os alunos prestes a fazer vestibular foram apresentados ao programa VemSer da Passos, que oferece apoio aos estudos. Mesmo em um ano desafiador, tivemos suporte em cada etapa, proporcionando mais tranquilidade. Com muito esforço, passei noites estudando, mas valeu a pena. Realizei meu sonho, fui aprovada na ESPM e agora sou bolsista em Comunicação e Publicidade. Com a Passos, iniciei um novo ciclo, e é fundamental ter ao meu lado pessoas que se importam com meu futuro.""")
+            st.markdown("**Resultado da análise utilizando nossa ferramenta de análise de sentimentos:**")
+
         # Função para realizar a análise de sentimentos
         def analisar_sentimento(texto):
             sia = SentimentIntensityAnalyzer()
