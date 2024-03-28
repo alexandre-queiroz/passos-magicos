@@ -5,4 +5,5 @@ matplotlib
 pywaffle
 streamlit-option-menu
 nltk
-networkx 
+networkx
+scipy 
