@@ -4,3 +4,4 @@ wordcloud
 matplotlib
 pywaffle
 streamlit-option-menu
+nltk
