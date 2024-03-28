@@ -12,6 +12,7 @@ import networkx as nx
 import numpy as np
 import random
 import pandas as pd
+import json
 from utils.leia import SentimentIntensityAnalyzer
 
 # Baixe os recursos necessários
@@ -263,6 +264,21 @@ Assim, vamos transformar o Brasil através da educação.
     # Use Streamlit's pyplot function to display the matplotlib plot
     st.pyplot(fig)
 
+def classificarsentimento(resultado1):
+    if resultado1["compound"]>=0.8: 
+        st.markdown("# 🥰")
+    elif resultado1["compound"]<0.8 and resultado1["compound"]>=0.5: 
+        st.markdown("# 😁")
+    elif resultado1["compound"]<0.5 and resultado1["compound"]>=0.2: 
+        st.markdown("# 😊")
+    elif resultado1["compound"]<0.2 and resultado1["compound"]>=-0.2: 
+        st.markdown("# 😐")
+    elif resultado1["compound"]<-0.2 and resultado1["compound"]>=-0.5: 
+        st.markdown("# 😟")
+    elif resultado1["compound"]<-0.5 and resultado1["compound"]>=-0.8: 
+        st.markdown("# 😠")
+    else:
+        st.markdown("# 😡")
 
 def create_waffle_chart():
 
@@ -373,74 +389,8 @@ Dessa forma, com os 1.100 alunos matriculados na Passos Mágicos em 2023, o impa
 Além disso, considerando o efeito multiplicador dessas influências, atingimos um número adicional de 5.500 pessoas indiretamente afetadas. Este é um reflexo do poder transformador da educação e do papel fundamental que a Passos Mágicos desempenha na comunidade.
 
 Assim, em um cálculo modesto, podemos afirmar que um total de 12.100 pessoas são afetadas pela educação proporcionada pela Passos Mágicos em 2023. Esse número não apenas sublinha a importância da instituição na vida dos alunos, mas também evidencia seu impacto positivo na sociedade em geral.""")
-    st.markdown("## Seleção para participação do projeto Passos Mágicos")
-    st.markdown(
-        "Em 2023 a Passos Mágicos organizou uma prova onde era necessario a realização da inscrição como pré-requisito.")
-    with st.container():
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            st.markdown("### 1) inscrições válidas X alunos que compareceram")
-            # Waffle Chart data
-            data = {'Não fizeram a prova': (
-                1121 - 817)/15, 'Fizeram a prova': 817/15}
-            # Create a figure using plt.figure and Waffle class
-            fig = plt.figure(
-                FigureClass=Waffle,
-                rows=5,
-                values=data,
-                colors=["#ced4d9", "#983D3D"],
-                labels=["{0} - {1}".format(k, int(v*15))
-                        for k, v in data.items()],
-                legend={'loc': 'upper left', 'bbox_to_anchor': (1, 1)}
-            )
-            # Display the figure using Streamlit
-            st.pyplot(fig)
 
-        with col2:
-            st.markdown(
-                "### 2) inscrições válidas X alunos que se matricularam (1ª sem)")
-            # Waffle Chart data
-            data = {'Não foram contemplados': (
-                817 - 298)/15, 'Foram contemplados': 298/15}
-            # Create a figure using plt.figure and Waffle class
-            fig = plt.figure(
-                FigureClass=Waffle,
-                rows=5,
-                values=data,
-                colors=["#ced4d9", "#182cdb"],
-                labels=["{0} - {1}".format(k, int(v*15))
-                        for k, v in data.items()],
-                legend={'loc': 'upper left', 'bbox_to_anchor': (1, 1)}
-            )
-            # Display the figure using Streamlit
-            st.pyplot(fig)
-
-            with col3:
-                st.markdown(
-                    "### 3) inscrições válidas X alunos que se matricularam")
-                # Waffle Chart data
-                data = {'Não foram contemplados': (
-                    817 - 298 - 254)/15, 'Foram contemplados': 298/15, 'Foram posteriormente': 254/15}
-                # Create a figure using plt.figure and Waffle class
-                fig = plt.figure(
-                    FigureClass=Waffle,
-                    rows=5,
-                    values=data,
-                    colors=["#ced4d9", "#182cdb", "#db8a18"],
-                    labels=["{0} - {1}".format(k, int(v*15))
-                            for k, v in data.items()],
-                    legend={'loc': 'upper left', 'bbox_to_anchor': (1, 1)},
-                )
-                # Display the figure using Streamlit
-                st.pyplot(fig)
-
-        st.write("""* Observou-se que, dentre os 1.121 alunos inscritos para a prova, uma proporção significativa de 304 alunos, equivalente a 27% do total, optaram por não realizar o exame.
-
-* No contexto das matrículas referentes ao 1º Semestre, a instituição Passos Mágicos disponibilizou um total de 298 bolsas de estudo. Esse número representa uma parte significativa da comunidade estudantil, contemplando precisamente 36% dos alunos matriculados nesse período.
-
-* Durante uma segunda rodada de seleção, um adicional de 254 alunos, representando 31% do total, foi agraciado com novas bolsas de estudo. Com essa inclusão, o número total de alunos contemplados ao longo do ano de 2023 ascendeu para 552, o que equivale a uma proporção significativa de 67% dos estudantes beneficiados com esse importante suporte financeiro. Esse aumento no número de bolsistas reflete o compromisso contínuo da instituição em ampliar o acesso à educação e em fornecer apoio adicional aos alunos que demonstram mérito e necessidade financeira.""")
-
-    st.title("O impacto da Passos Mágicos: Se todos os jovens fossem contemplados")
+    st.title("O impacto da Passos Mágicos: Daqui a 10 anos")
     st.write("A cada ano, a instituição Passos Mágicos aceita em média 150 alunos a mais do que no ano anterior. Com essa progressão constante, em um período de 10 anos, estima-se que a Passos Mágicos terá uma matrícula total de aproximadamente 2.600 alunos ativos. Esse número não apenas reflete o crescimento contínuo e sustentável da instituição, mas também demonstra seu papel vital na comunidade educacional de Embu-Guaçu. Considerando os dados demográficos atuais, essa estimativa de 2.600 alunos representa aproximadamente 71% da população infantil de Embu-Guaçu. Esse é um indicativo poderoso do impacto significativo que a Passos Mágicos tem na vida educacional das crianças e jovens da região. Essa expansão não apenas amplia o acesso à educação de qualidade, mas também contribui para o desenvolvimento e o progresso da comunidade como um todo.")
     st.image("assets/crescimento.jpeg")
     col1, col2 = st.columns(2)
@@ -541,6 +491,72 @@ Portanto, com os 2.600 alunos matriculados na Passos Mágicos, temos um impacto 
         # Streamlit: renderizando a figura
         st.plotly_chart(fig)
 
+    st.markdown("## Seleção para participação do projeto Passos Mágicos")
+    st.markdown(
+        "Em 2023 a Passos Mágicos organizou uma prova onde era necessario a realização da inscrição como pré-requisito.")
+    with st.container():
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.markdown("### 1) inscrições válidas X alunos que compareceram")
+            # Waffle Chart data
+            data = {'Não fizeram a prova': (
+                1121 - 817)/15, 'Fizeram a prova': 817/15}
+            # Create a figure using plt.figure and Waffle class
+            fig = plt.figure(
+                FigureClass=Waffle,
+                rows=5,
+                values=data,
+                colors=["#ced4d9", "#983D3D"],
+                labels=["{0} - {1}".format(k, int(v*15))
+                        for k, v in data.items()],
+                legend={'loc': 'upper left', 'bbox_to_anchor': (1, 1)}
+            )
+            # Display the figure using Streamlit
+            st.pyplot(fig)
+
+        with col2:
+            st.markdown(
+                "### 2) inscrições válidas X alunos que se matricularam (1ª sem)")
+            # Waffle Chart data
+            data = {'Não foram contemplados': (
+                817 - 298)/15, 'Foram contemplados': 298/15}
+            # Create a figure using plt.figure and Waffle class
+            fig = plt.figure(
+                FigureClass=Waffle,
+                rows=5,
+                values=data,
+                colors=["#ced4d9", "#182cdb"],
+                labels=["{0} - {1}".format(k, int(v*15))
+                        for k, v in data.items()],
+                legend={'loc': 'upper left', 'bbox_to_anchor': (1, 1)}
+            )
+            # Display the figure using Streamlit
+            st.pyplot(fig)
+
+            with col3:
+                st.markdown(
+                    "### 3) inscrições válidas X alunos que se matricularam")
+                # Waffle Chart data
+                data = {'Não foram contemplados': (
+                    817 - 298 - 254)/15, 'Foram contemplados': 298/15, 'Foram posteriormente': 254/15}
+                # Create a figure using plt.figure and Waffle class
+                fig = plt.figure(
+                    FigureClass=Waffle,
+                    rows=5,
+                    values=data,
+                    colors=["#ced4d9", "#182cdb", "#db8a18"],
+                    labels=["{0} - {1}".format(k, int(v*15))
+                            for k, v in data.items()],
+                    legend={'loc': 'upper left', 'bbox_to_anchor': (1, 1)},
+                )
+                # Display the figure using Streamlit
+                st.pyplot(fig)
+
+    st.write("""* Observou-se que, dentre os 1.121 alunos inscritos para a prova, uma proporção significativa de 304 alunos, equivalente a 27% do total, optaram por não realizar o exame.
+
+* No contexto das matrículas referentes ao 1º Semestre, a instituição Passos Mágicos disponibilizou um total de 298 bolsas de estudo. Esse número representa uma parte significativa da comunidade estudantil, contemplando precisamente 36% dos alunos matriculados nesse período.
+
+* Durante uma segunda rodada de seleção, um adicional de 254 alunos, representando 31% do total, foi agraciado com novas bolsas de estudo. Com essa inclusão, o número total de alunos contemplados ao longo do ano de 2023 ascendeu para 552, o que equivale a uma proporção significativa de 67% dos estudantes beneficiados com esse importante suporte financeiro. Esse aumento no número de bolsistas reflete o compromisso contínuo da instituição em ampliar o acesso à educação e em fornecer apoio adicional aos alunos que demonstram mérito e necessidade financeira.""")
 
 def main():
     create_sidebar()
@@ -763,7 +779,9 @@ Esse cenário ressalta a importância das avaliações regulares no processo edu
             resultado1 = s.polarity_scores(texto1)
             st.markdown(
                 "**Resultado da análise utilizando nossa ferramenta de análise de sentimentos:**")
+            # resultado1_dict = json.loads(resultado1)
             st.json(resultado1)
+            classificarsentimento(resultado1)
 
         with col2:
             st.image("assets/menina2.jpeg")
@@ -773,6 +791,7 @@ Esse cenário ressalta a importância das avaliações regulares no processo edu
             st.markdown(
                 "**Resultado da análise utilizando nossa ferramenta de análise de sentimentos:**")
             st.json(resultado2)
+            classificarsentimento(resultado2)
 
         with col3:
             st.image("assets/menina3.jpeg")
@@ -782,6 +801,7 @@ Esse cenário ressalta a importância das avaliações regulares no processo edu
             st.markdown(
                 "**Resultado da análise utilizando nossa ferramenta de análise de sentimentos:**")
             st.json(resultado3)
+            classificarsentimento(resultado3)
 
         # Função para realizar a análise de sentimentos
         def analisar_sentimento(texto):
@@ -802,6 +822,7 @@ Esse cenário ressalta a importância das avaliações regulares no processo edu
                 # Exibir o resultado da análise
                 st.write("### Resultado da Análise de Sentimentos:")
                 st.write(f"Sentimento: {sentiment}")
+                classificarsentimento(sentiment)
             else:
                 st.warning("Por favor, insira um texto para análise.")
 
@@ -822,6 +843,7 @@ Esse cenário ressalta a importância das avaliações regulares no processo edu
             "* Depoimentos Passos Mágicos: https://passosmagicos.org.br/uma-historia-de-sucesso/,\n\n"
             "* Depoimentos Facebook: https://www.facebook.com/passosmagicos/videos,\n\n"
             "* Noticia Linkedin - Vitórias que Transformam: https://www.linkedin.com/pulse/vit%C3%B3rias-que-transformam-passosmagicos-fz1le/?originalSubdomain=pt.\n\n"
+            "* Git Hub - Classificação das Palavras: https://github.com/rafjaa/LeIA"
         )
         st.image("assets/referencias.jpeg")
     elif choice == "Quem somos?":
