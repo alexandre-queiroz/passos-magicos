@@ -12,7 +12,7 @@ import networkx as nx
 import numpy as np
 import random
 import pandas as pd
-from LeIA.leia import SentimentIntensityAnalyzer
+from utils.leia import SentimentIntensityAnalyzer
 
 # Baixe os recursos necessários
 nltk.download('vader_lexicon')
